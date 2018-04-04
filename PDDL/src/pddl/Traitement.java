@@ -11,10 +11,15 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
+import java.security.Principal;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+
+import net.sourceforge.plantuml.GeneratedImage;
+import net.sourceforge.plantuml.SourceFileReader;
 
 /**
  *
@@ -239,7 +244,7 @@ public class Traitement extends javax.swing.JFrame {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
-String[] commande = {"cmd.exe","/C","java -jar C:\\pddl\\pddl4j-master\\build\\lib\\pddl4j-3.5.0.jar -server -Xms2048m -Xmx2048m fr.uga.pddl4j.planners.hsp.HSP -o "+TextDomaine.getText()+" -f "+probleme.getText()}; 
+String[] commande = {"cmd.exe","/C","java -javaagent:C:\\Users\\Bad-Boy\\AllMygit\\PDDL\\PDDL\\dist\\lib\\pddl4j-3.5.0.jar -server -Xms2048m -Xmx2048m fr.uga.pddl4j.planners.hsp.HSP -o "+TextDomaine.getText()+" -f "+probleme.getText()}; 
 	
             Process p;
         try {
@@ -259,7 +264,6 @@ String[] commande = {"cmd.exe","/C","java -jar C:\\pddl\\pddl4j-master\\build\\l
               jTextArea1.append(umlState);
               
     
-           
 
             
             while ((ligne = error.readLine()) != null) {
@@ -268,15 +272,18 @@ String[] commande = {"cmd.exe","/C","java -jar C:\\pddl\\pddl4j-master\\build\\l
             }
             
           
-           File f = new File("sequenceDiagram.txt");
-           String[] result = {"cmd.exe", "/C", "java -javaagent:lib\\plantuml.jar "+f.getAbsolutePath()};
+           File f = new File("src/MyFilesResult/sequenceDiagram.txt");
+           System.out.println(f.getAbsolutePath());
+           SourceFileReader reader = new SourceFileReader(f);
+           List<GeneratedImage> list = reader.getGeneratedImages(); // Generated files File png = list.get(0).getPngFile();
+          /* String[] result = {"cmd.exe", "/C", "java -javaagent:C:\\Users\\Bad-Boy\\AllMygit\\PDDL\\PDDL\\dist\\lib\\plantuml.jar "+f.getAbsolutePath()};
 
             PrintWriter out = new PrintWriter(new FileWriter(f));
             out.print(umlState);
             out.close();
                       p = Runtime.getRuntime().exec(result);
 
-            
+            */
 
         } catch (IOException ex) {
             Logger.getLogger(Traitement.class.getName()).log(Level.SEVERE, null, ex);
