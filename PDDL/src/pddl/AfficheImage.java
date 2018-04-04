@@ -45,6 +45,7 @@ public class AfficheImage extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        Image.setBackground(new java.awt.Color(255, 255, 255));
         jScrollPane1.setViewportView(Image);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -15,7 +15,9 @@ import java.security.Principal;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.Icon;
 import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import net.sourceforge.plantuml.GeneratedImage;
@@ -26,7 +28,10 @@ import net.sourceforge.plantuml.SourceFileReader;
  * @author abdelkhalek
  */
 public class Traitement extends javax.swing.JFrame {
-
+ File f; 
+ List<GeneratedImage> list;
+ SourceFileReader reader;
+ PrintWriter out;
     /**
      * Creates new form Traitement
      */
@@ -269,27 +274,38 @@ String[] commande = {"cmd.exe","/C","java -javaagent:C:\\Users\\Bad-Boy\\AllMygi
                                  ligne+="\n";
                          jTextArea1.append(ligne);
             }
-            
-          String path = "src/MyFilesResult/sequenceDiagram.txt";
-          String pathImage="src/MyFilesResult/sequenceDiagram.png";
-           File f = new File(path);
-           System.out.println(f.getAbsolutePath());
-           SourceFileReader reader = new SourceFileReader(f);
-           List<GeneratedImage> list = reader.getGeneratedImages(); 
-           
-           this.setVisible(false);
-           new AfficheImage(pathImage).setVisible(true);
-           
+      
            // Generated files File png = list.get(0).getPngFile();
           /* String[] result = {"cmd.exe", "/C", "java -javaagent:C:\\Users\\Bad-Boy\\AllMygit\\PDDL\\PDDL\\dist\\lib\\plantuml.jar "+f.getAbsolutePath()};
-
-            PrintWriter out = new PrintWriter(new FileWriter(f));
-            out.print(umlState);
-            out.close();
                       p = Runtime.getRuntime().exec(result);
 
             */
+          
+String s = (String)JOptionPane.showInputDialog(
+                    this,
+                    "donner un nom pour votre fichier",
+                    "Nommer votre fichier",
+                    JOptionPane.PLAIN_MESSAGE,
+                    null,
+                    null,
+                    "");
 
+                if ((s != null) && (s.length() > 0)) {
+                    String path = "src/MyFilesResult/"+s+".txt";
+                    String pathImage="src/MyFilesResult/"+s+".png";
+                    f = new File(path);
+                    out = new PrintWriter(new FileWriter(f));
+                    out.print(umlState);
+                    out.close();
+
+                    
+                    System.out.println(f.getAbsolutePath());
+                    reader = new SourceFileReader(f);
+                    list = reader.getGeneratedImages(); 
+                    Traitement.this.setVisible(false);
+                    new AfficheImage(pathImage).setVisible(true);
+                }
+          
         } catch (IOException ex) {
             Logger.getLogger(Traitement.class.getName()).log(Level.SEVERE, null, ex);
         }
