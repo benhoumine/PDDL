@@ -67,6 +67,13 @@ public class Traitement extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu6 = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        jMenu7 = new javax.swing.JMenu();
+        jMenu8 = new javax.swing.JMenu();
+        jMenu3 = new javax.swing.JMenu();
+        jMenuItem2 = new javax.swing.JMenuItem();
+        jMenuItem3 = new javax.swing.JMenuItem();
 
         jMenu1.setText("jMenu1");
 
@@ -75,6 +82,7 @@ public class Traitement extends javax.swing.JFrame {
         jMenu5.setText("jMenu5");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(52, 73, 94));
 
         jPanel1.setBackground(new java.awt.Color(52, 73, 94));
 
@@ -199,13 +207,56 @@ public class Traitement extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel2))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(0, 12, Short.MAX_VALUE)
+                        .addGap(0, 28, Short.MAX_VALUE)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 379, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21))
         );
 
         jMenuBar1.setBackground(new java.awt.Color(52, 73, 94));
         jMenuBar1.setForeground(new java.awt.Color(255, 255, 255));
+
+        jMenu6.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu6.setText("File");
+
+        jMenuItem1.setText("ouvrir image recent");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        jMenu6.add(jMenuItem1);
+
+        jMenuBar1.add(jMenu6);
+
+        jMenu7.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu7.setText("about");
+        jMenuBar1.add(jMenu7);
+
+        jMenu8.setForeground(new java.awt.Color(255, 255, 255));
+        jMenu8.setText("Help");
+
+        jMenu3.setText("A propos");
+
+        jMenuItem2.setText("environnement");
+        jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem2ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem2);
+
+        jMenuItem3.setText("version");
+        jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem3ActionPerformed(evt);
+            }
+        });
+        jMenu3.add(jMenuItem3);
+
+        jMenu8.add(jMenu3);
+
+        jMenuBar1.add(jMenu8);
+
         setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -216,9 +267,9 @@ public class Traitement extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         pack();
@@ -256,16 +307,21 @@ String[] commande = {"cmd.exe","/C","java -javaagent:C:\\Users\\Bad-Boy\\AllMygi
             BufferedReader output = getOutput(p);
             BufferedReader error = getError(p);
             String ligne = "";
+            String resultatAppend="";
             String umlState = "@startuml\n" +
                               "start\n";
              while ((ligne = output.readLine()) != null) {
+                 
+                 if(ligne.matches("^[0-9].*$")){
                  umlState+=":"+ligne+" ;\n";
+                 }
+                 resultatAppend+=ligne+"\n";
                // jTextArea1.append(ligne);
             }
              
              umlState+="stop\n @enduml" ;
             
-              jTextArea1.append(umlState);
+              jTextArea1.append(resultatAppend);
               
     
 
@@ -311,6 +367,26 @@ String s = (String)JOptionPane.showInputDialog(
         }
             
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        this.setVisible(false);
+        new AfficheImageRecent().setVisible(true);
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
+        this.setVisible(false);
+        new InformationEnvironnement().setVisible(true);
+    }//GEN-LAST:event_jMenuItem2ActionPerformed
+
+    private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
+JOptionPane.showMessageDialog(this,
+    "PDDL4J Version 1.0 \nBENHOUMINE Abdelkhalek\n \tENSIAS 2017-2018");        // TODO add your handling code here:
+    }//GEN-LAST:event_jMenuItem3ActionPerformed
   private static BufferedReader getOutput(Process p) {
         return new BufferedReader(new InputStreamReader(p.getInputStream()));
     }
@@ -364,8 +440,15 @@ String s = (String)JOptionPane.showInputDialog(
     private javax.swing.JLabel jLabel4;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
     private javax.swing.JMenu jMenu5;
+    private javax.swing.JMenu jMenu6;
+    private javax.swing.JMenu jMenu7;
+    private javax.swing.JMenu jMenu8;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenuItem jMenuItem3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
